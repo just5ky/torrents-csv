@@ -2,9 +2,7 @@ version: '3.7'
 
 services:
   torrents-csv:
-    build: 
-      context: ../../
-      dockerfile: docker/dev/Dockerfile
+    image: torrents-csv-server:latest
     restart: always
     ports:
       - "8902:8080"

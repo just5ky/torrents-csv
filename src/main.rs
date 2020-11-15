@@ -49,7 +49,7 @@ async fn index() -> Result<NamedFile, actix_web::error::Error> {
 }
 
 fn front_end_dir() -> String {
-  env::var("TORRENTS_CSV_FRONT_END_DIR").unwrap_or_else(|_| "../ui/dist".to_string())
+  env::var("TORRENTS_CSV_FRONT_END_DIR").unwrap_or_else(|_| "./ui/dist".to_string())
 }
 
 fn torrents_db_file() -> String {
