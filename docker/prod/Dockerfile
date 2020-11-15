@@ -39,12 +39,12 @@ ARG CARGO_BUILD_TARGET=x86_64-unknown-linux-musl
 WORKDIR /app
 RUN cargo install cargo-chef --version 0.1.6
 COPY --from=planner /app/recipe.json ./recipe.json
-RUN cargo chef cook --target ${CARGO_BUILD_TARGET} --recipe-path recipe.json
+RUN cargo chef cook --release --target ${CARGO_BUILD_TARGET} --recipe-path recipe.json
 
 FROM $RUST_BUILDER_IMAGE as builder
 
 ARG CARGO_BUILD_TARGET=x86_64-unknown-linux-musl
-ARG RUSTRELEASEDIR="debug"
+ARG RUSTRELEASEDIR="release"
 
 WORKDIR /app
 COPY ./Cargo.toml ./Cargo.lock .
@@ -52,7 +52,7 @@ COPY ./src src
 # Copy over the cached dependencies
 COPY --from=cacher /app/target target
 COPY --from=cacher /home/rust/.cargo /home/rust/.cargo
-RUN cargo build
+RUN cargo build --release
 
 # reduce binary size
 RUN strip ./target/$CARGO_BUILD_TARGET/$RUSTRELEASEDIR/torrents-csv-service

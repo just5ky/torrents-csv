@@ -1,5 +1,5 @@
 #!/bin/sh
-git checkout master
+git checkout main
 
 # Creating the new tag
 new_tag="$1"
