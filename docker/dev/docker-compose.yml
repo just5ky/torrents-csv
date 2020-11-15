@@ -5,11 +5,7 @@ services:
     image: torrents-csv-server:latest
     restart: always
     ports:
-      - "8902:8080"
+      - "8902:8902"
     environment:
       TORRENTS_CSV_DB_FILE: /app/torrents.db 
       TORRENTS_CSV_FRONT_END_DIR: /app/dist
-    volumes:
-      - type: bind
-        source: ../../torrents.db
-        target: /app/torrents.db

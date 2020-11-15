@@ -53,11 +53,11 @@ fn front_end_dir() -> String {
 }
 
 fn torrents_db_file() -> String {
-  env::var("TORRENTS_CSV_DB_FILE").unwrap_or_else(|_| "../../torrents.db".to_string())
+  env::var("TORRENTS_CSV_DB_FILE").unwrap_or_else(|_| "./torrents.db".to_string())
 }
 
 fn endpoint() -> String {
-  env::var("TORRENTS_CSV_ENDPOINT").unwrap_or_else(|_| "0.0.0.0:8080".to_string())
+  env::var("TORRENTS_CSV_ENDPOINT").unwrap_or_else(|_| "0.0.0.0:8902".to_string())
 }
 
 #[derive(Deserialize)]
