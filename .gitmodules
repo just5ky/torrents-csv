@@ -1,0 +1,8 @@
+[submodule "ui"]
+	path = ui
+	url = https://codeberg.org/heretic/torrents-csv-ui
+	branch = main
+[submodule "data"]
+	path = data
+	url = https://codeberg.org/heretic/torrents-csv-data
+	branch = main
