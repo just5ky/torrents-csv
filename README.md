@@ -27,7 +27,7 @@ wget https://codeberg.org/heretic/torrents-csv-server/raw/branch/main/docker/pro
 docker-compose up -d
 ```
 
-And goto http://127.0.0.01:8902
+And goto http://localhost:8902
 
 ### Docker Development
 
