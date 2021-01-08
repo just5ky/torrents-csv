@@ -59,9 +59,9 @@ bleh season 1 (1993-)
 
 A JSON output of search results is available at:
 
-`http://localhost:8902/service/search?q=[QUERY]&size=[NUMBER_OF_RESULTS]&offset=[PAGE]&type=[torrent | file]`
+`http://localhost:8902/service/search?q=[QUERY]&size=[NUMBER_OF_RESULTS]&page=[PAGE]&type=[torrent | file]`
 
 New torrents are at:
 
-`http://localhost:8902/service/new?size=[NUMBER_OF_RESULTS]&offset=[PAGE]&type=[torrent | file]`
+`http://localhost:8902/service/new?size=[NUMBER_OF_RESULTS]&page=[PAGE]&type=[torrent | file]`
 
