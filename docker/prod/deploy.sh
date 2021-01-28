@@ -16,9 +16,9 @@ git commit -m"Upping version."
 # git push
 
 # Rebuilding docker
-sudo docker build ../../ --file ../prod/Dockerfile -t torrents-csv-server:latest
-sudo docker tag torrents-csv-server:latest dessalines/torrents-csv-server:$new_tag
+sudo docker build ../../ --file ../prod/Dockerfile -t torrents-csv-server:latest -t dessalines/torrents-csv-server:$new_tag -t dessalines/torrents-csv-server:latest
 sudo docker push dessalines/torrents-csv-server:$new_tag
+sudo docker push dessalines/torrents-csv-server:latest
 
 # SSH and pull it
-# ssh tyler@45.55.175.59 "cd ~/git/torrents.csv/scripts/ && ./git_update.sh && cd ../docker/prod && git pull && docker-compose up -d"
+ssh tyler@107.170.69.217 "cd ~/git/torrents-csv-server && docker-compose pull && docker-compose up -d"
