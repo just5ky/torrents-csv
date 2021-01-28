@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   torrents-csv:
-    image: dessalines/torrents-csv-server:v0.0.11
+    image: dessalines/torrents-csv-server:v0.0.12
     restart: always
     ports:
       - "8902:8902"
