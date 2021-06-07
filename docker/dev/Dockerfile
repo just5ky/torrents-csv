@@ -26,10 +26,9 @@ FROM $RUST_BUILDER_IMAGE as planner
 WORKDIR /app
 # We only pay the installation cost once, 
 # it will be cached from the second build onwards
-RUN cargo install cargo-chef --version 0.1.6
+RUN cargo install cargo-chef
 COPY ./Cargo.toml ./Cargo.lock .
 COPY ./src src
-RUN ls
 RUN cargo chef prepare --recipe-path recipe.json
 
 FROM $RUST_BUILDER_IMAGE as cacher
@@ -37,7 +36,7 @@ FROM $RUST_BUILDER_IMAGE as cacher
 ARG CARGO_BUILD_TARGET=x86_64-unknown-linux-musl
 
 WORKDIR /app
-RUN cargo install cargo-chef --version 0.1.6
+RUN cargo install cargo-chef
 COPY --from=planner /app/recipe.json ./recipe.json
 RUN cargo chef cook --target ${CARGO_BUILD_TARGET} --recipe-path recipe.json
 
@@ -60,7 +59,7 @@ RUN strip ./target/$CARGO_BUILD_TARGET/$RUSTRELEASEDIR/torrents-csv-service
 RUN cp ./target/$CARGO_BUILD_TARGET/$RUSTRELEASEDIR/torrents-csv-service /app/torrents-csv-service
 
 # The runner
-FROM alpine:3.12
+FROM alpine:3
   
 # Copy resources
 COPY --from=builder /app/torrents-csv-service /app/
