@@ -138,7 +138,7 @@ fn torrent_search(
   offset: usize,
 ) -> Result<Vec<Torrent>, Error> {
   let stmt_str = "select * from torrents where name like '%' || ?1 || '%' limit ?2, ?3";
-  let mut stmt = conn.prepare(&stmt_str)?;
+  let mut stmt = conn.prepare(stmt_str)?;
   let torrent_iter = stmt.query_map(
     params![
       query.replace(" ", "%"),
@@ -186,7 +186,7 @@ fn torrent_file_search(
   offset: usize,
 ) -> Result<Vec<File>, Error> {
   let stmt_str = "select * from files where path like '%' || ?1 || '%' limit ?2, ?3";
-  let mut stmt = conn.prepare(&stmt_str).unwrap();
+  let mut stmt = conn.prepare(stmt_str).unwrap();
   let file_iter = stmt.query_map(
     params![
       query.replace(" ", "%"),
