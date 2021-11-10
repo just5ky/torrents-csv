@@ -1,4 +1,4 @@
-ARG RUST_BUILDER_IMAGE=rust:1.56-alpine
+ARG RUST_BUILDER_IMAGE=clux/muslrust:1.56.0
 
 # Front end
 FROM node:10-jessie as node
@@ -23,7 +23,6 @@ RUN ./build_sqlite.sh
 
 FROM $RUST_BUILDER_IMAGE as chef
 USER root
-RUN apk add musl-dev
 RUN cargo install cargo-chef
 WORKDIR /app
 
