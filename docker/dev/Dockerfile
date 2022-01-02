@@ -26,7 +26,7 @@ WORKDIR /app
 
 # Chef plan
 FROM chef as planner
-COPY ./Cargo.toml ./Cargo.lock .
+COPY ./Cargo.toml ./Cargo.lock ./
 COPY ./src src
 RUN cargo chef prepare --recipe-path recipe.json
 
@@ -38,7 +38,7 @@ ARG RUSTRELEASEDIR="debug"
 COPY --from=planner /app/recipe.json ./recipe.json
 RUN cargo chef cook --target ${CARGO_BUILD_TARGET} --recipe-path recipe.json
 
-COPY ./Cargo.toml ./Cargo.lock .
+COPY ./Cargo.toml ./Cargo.lock ./
 COPY ./src src
 RUN cargo build --target ${CARGO_BUILD_TARGET}
 
