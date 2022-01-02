@@ -12,10 +12,9 @@ COPY ./ui /app/ui
 RUN yarn build
 
 # Build the torrents.db file
-FROM ubuntu:groovy as db_file_builder
+FROM alpine:3.14 as db_file_builder
 WORKDIR /app
-RUN apt-get -y update
-RUN apt-get -y install sqlite3
+RUN apk add sed sqlite bash coreutils
 COPY ./data ./data
 COPY ./build_sqlite.sh .
 RUN ./build_sqlite.sh
