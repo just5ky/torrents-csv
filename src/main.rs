@@ -141,7 +141,7 @@ fn torrent_search(
   let mut stmt = conn.prepare(stmt_str)?;
   let torrent_iter = stmt.query_map(
     params![
-      query.replace(" ", "%"),
+      query.replace(' ', "%"),
       offset.to_string(),
       size.to_string(),
     ],
@@ -189,7 +189,7 @@ fn torrent_file_search(
   let mut stmt = conn.prepare(stmt_str).unwrap();
   let file_iter = stmt.query_map(
     params![
-      query.replace(" ", "%"),
+      query.replace(' ', "%"),
       offset.to_string(),
       size.to_string(),
     ],
