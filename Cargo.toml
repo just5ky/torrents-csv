@@ -5,24 +5,24 @@ authors = ["Heretic <tylerjobsearch06@gmx.com>"]
 edition = "2018"
 
 [dependencies]
-actix-web = "3.3.2"
-actix-files = "0.5.0"
+actix-web = "4.0.1"
+actix-files = "0.6.0"
 env_logger = "0.9.0"
 
-serde = "1.0.131"
-serde_json = "1.0.73"
-serde_derive = "1.0.131"
+serde = "1.0.137"
+serde_json = "1.0.81"
+serde_derive = "1.0.137"
 
-failure = "0.1.8"
+anyhow = "1.0.57"
 
 r2d2 = "0.8.9"
-r2d2_sqlite = "0.19.0"
+r2d2_sqlite = "0.20.0"
 
 [dependencies.rusqlite]
-version = "0.26.3"
+version = "0.27.0"
 features = ["bundled"]
 
 [dev-dependencies.cargo-husky]
 version = "1.5.0"
-default-features = false # Disable features which are enabled by default
+default-features = false
 features = ["precommit-hook", "run-cargo-fmt", "run-cargo-clippy"]
