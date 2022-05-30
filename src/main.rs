@@ -4,16 +4,14 @@ extern crate serde;
 extern crate serde_json;
 #[macro_use]
 extern crate serde_derive;
-extern crate rusqlite;
-#[macro_use]
-extern crate failure;
 extern crate r2d2;
 extern crate r2d2_sqlite;
+extern crate rusqlite;
 
 use actix_files as fs;
 use actix_files::NamedFile;
-use actix_web::{middleware, web, App, HttpResponse, HttpServer};
-use failure::Error;
+use actix_web::{middleware, web, web::Data, App, HttpResponse, HttpServer};
+use anyhow::{anyhow, Error};
 use r2d2_sqlite::SqliteConnectionManager;
 use rusqlite::params;
 use serde_json::Value;
@@ -32,7 +30,7 @@ async fn main() -> io::Result<()> {
 
   HttpServer::new(move || {
     App::new()
-      .data(pool.clone())
+      .app_data(Data::new(pool.clone()))
       .wrap(middleware::Logger::default())
       .service(fs::Files::new("/static", front_end_dir()))
       .route("/", web::get().to(index))
@@ -74,12 +72,14 @@ async fn search(
 ) -> Result<HttpResponse, actix_web::Error> {
   let res = web::block(move || {
     let conn = db.get().unwrap();
-    search_query(query, conn)
+
+    // TODO can't get errors to propagate correctly
+    search_query(query, conn).unwrap()
   })
   .await
   .map(|body| {
     HttpResponse::Ok()
-      .header("Access-Control-Allow-Origin", "*")
+      .append_header(("Access-Control-Allow-Origin", "*"))
       .json(body)
   })
   .map_err(actix_web::error::ErrorBadRequest)?;
@@ -92,10 +92,7 @@ fn search_query(
 ) -> Result<Value, Error> {
   let q = query.q.trim();
   if q.is_empty() || q.len() < 3 || q == "2020" {
-    return Err(format_err!(
-      "{{\"error\": \"{}\"}}",
-      "Empty query".to_string()
-    ));
+    return Err(anyhow!("{{\"error\": \"{}\"}}", "Empty query".to_string()));
   }
 
   let page = query.page.unwrap_or(1);
@@ -110,10 +107,10 @@ fn search_query(
 
   let res = if type_ == "file" {
     let results = torrent_file_search(conn, q, size, offset)?;
-    serde_json::to_value(&results).unwrap()
+    serde_json::to_value(&results)?
   } else {
     let results = torrent_search(conn, q, size, offset)?;
-    serde_json::to_value(&results).unwrap()
+    serde_json::to_value(&results)?
   };
 
   Ok(res)
@@ -161,7 +158,7 @@ fn torrent_search(
 
   let mut torrents = Vec::new();
   for torrent in torrent_iter {
-    torrents.push(torrent.unwrap());
+    torrents.push(torrent?);
   }
   Ok(torrents)
 }
@@ -186,7 +183,7 @@ fn torrent_file_search(
   offset: usize,
 ) -> Result<Vec<File>, Error> {
   let stmt_str = "select * from files where path like '%' || ?1 || '%' limit ?2, ?3";
-  let mut stmt = conn.prepare(stmt_str).unwrap();
+  let mut stmt = conn.prepare(stmt_str)?;
   let file_iter = stmt.query_map(
     params![
       query.replace(' ', "%"),
@@ -210,7 +207,7 @@ fn torrent_file_search(
 
   let mut files = Vec::new();
   for file in file_iter {
-    files.push(file.unwrap());
+    files.push(file?);
   }
   Ok(files)
 }
