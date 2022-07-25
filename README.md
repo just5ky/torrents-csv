@@ -12,7 +12,7 @@ Its initially populated with a January 2017 backup of the pirate bay, and new to
 
 ![img](https://i.imgur.com/yTFuwpv.png)
 
-To request more torrents, or add your own, go [here](https://codeberg.org/heretic/torrents-csv-data).
+To request more torrents, or add your own, go [here](https://gitea.com/heretic/torrents-csv-data).
 
 Made with [Rust](https://www.rust-lang.org), [ripgrep](https://github.com/BurntSushi/ripgrep), [Actix](https://actix.rs/), [Inferno](https://www.infernojs.org), [Typescript](https://www.typescriptlang.org/).
 
