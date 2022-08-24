@@ -33,7 +33,7 @@ RUN cargo chef prepare --recipe-path recipe.json
 
 # Chef build
 FROM chef as builder
-ARG CARGO_BUILD_TARGET=x86_64-unknown-linux-musl
+ARG CARGO_BUILD_TARGET=aarch64-unknown-linux-gnu
 ARG RUSTRELEASEDIR="release"
 
 COPY --from=planner /app/recipe.json ./recipe.json
@@ -49,9 +49,9 @@ RUN strip ./target/$CARGO_BUILD_TARGET/$RUSTRELEASEDIR/torrents-csv-service
 RUN cp ./target/$CARGO_BUILD_TARGET/$RUSTRELEASEDIR/torrents-csv-service /app/torrents-csv-service
 
 # The runner
-FROM alpine:3
+FROM alpine
 RUN addgroup -S myuser && adduser -S myuser -G myuser
-  
+
 # Copy resources
 COPY --from=builder /app/torrents-csv-service /app/
 COPY --from=node /app/ui/dist /app/dist
