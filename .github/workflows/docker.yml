@@ -43,7 +43,7 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v2
         with:
-          context: ./docker/prod
+          context: /docker/prod
           file: Dockerfile
           platforms: linux/arm64
           push: true
