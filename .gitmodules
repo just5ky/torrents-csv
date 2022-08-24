@@ -1,8 +1,0 @@
-# [submodule "ui"]
-# 	path = ui
-# 	url = https://gitea.com/heretic/torrents-csv-ui
-# 	branch = main
-[submodule "data"]
-	path = data
-	url = https://gitea.com/heretic/torrents-csv-data
-	branch = main

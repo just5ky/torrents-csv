@@ -1,0 +1,5 @@
+generate_translations.js
+webpack.config.js
+src/api_tests
+fuse.js
+.prettierrc.js
