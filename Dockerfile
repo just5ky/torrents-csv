@@ -18,7 +18,7 @@ WORKDIR /app
 RUN apk add sed sqlite bash coreutils
 COPY /data ./data
 COPY /build_sqlite.sh .
-RUN /build_sqlite.sh
+RUN ./build_sqlite.sh
 
 FROM $RUST_BUILDER_IMAGE as chef
 USER root
