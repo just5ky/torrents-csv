@@ -1,4 +1,4 @@
-ARG RUST_BUILDER_IMAGE=clux/muslrust:1.56.0
+ARG RUST_BUILDER_IMAGE=rust
 
 # Front end
 FROM node:10-jessie as node
