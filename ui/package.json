@@ -16,7 +16,7 @@
     "dotenv": "^8.2.0",
     "inferno": "^7.4.6",
     "inferno-router": "^7.4.6",
-    "moment": "^2.29.1"
+    "moment": "^2.29.4"
   },
   "devDependencies": {
     "@typescript-eslint/parser": "^4.7.0",
