@@ -1,4 +1,4 @@
-ARG RUST_BUILDER_IMAGE=rust:alpine
+ARG RUST_BUILDER_IMAGE=rust
 
 # Front end
 FROM node:10-jessie as node
