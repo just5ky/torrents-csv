@@ -6,8 +6,13 @@ on:
     - cron: "0 0 * * 1"
   push:
     branches:
-      - latest
+      - arm64
+    paths-ignore:
+      - 'README.MD'
+      - '.github'
+      - 'docker'
       
+
 jobs:
   build:
     name: build

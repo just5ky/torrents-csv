@@ -1,4 +1,4 @@
-ARG RUST_BUILDER_IMAGE=rust
+ARG RUST_BUILDER_IMAGE=rust:alpine
 
 # Front end
 FROM node:10-jessie as node
@@ -33,7 +33,7 @@ RUN cargo chef prepare --recipe-path recipe.json
 
 # Chef build
 FROM chef as builder
-ARG CARGO_BUILD_TARGET=aarch64-unknown-linux-gnu
+ARG CARGO_BUILD_TARGET=aarch64-unknown-linux-musl
 ARG RUSTRELEASEDIR="release"
 
 COPY --from=planner /app/recipe.json ./recipe.json
