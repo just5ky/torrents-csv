@@ -5,7 +5,7 @@ authors = ["Heretic <tylerjobsearch06@gmx.com>"]
 edition = "2018"
 
 [dependencies]
-actix-web = "4.2.1"
+actix-web = "4.3.0"
 actix-files = "0.6.2"
 env_logger = "0.10.0"
 
