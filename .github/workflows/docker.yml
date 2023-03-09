@@ -6,7 +6,7 @@ on:
     - cron: "0 0 * * 1"
   push:
     branches:
-      - arm64
+      - "*"
     paths-ignore:
       - 'README.MD'
       - '.github'
@@ -23,9 +23,16 @@ jobs:
       contents: read
 
     steps:
-      - name: Check out the repo
+      - name: Check out the our repo
         uses: actions/checkout@v3
-
+        
+      - name: Clone upstream repo
+        run: |
+             git clone --depth=1 https://git.torrents-csv.ml/heretic/torrents-csv-server.git torrents-csv-src
+             cp Dockerfile torrents-csv-src/Dockerfile
+             cd torrents-csv-src/
+             tree ./
+             
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
@@ -46,9 +53,9 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/torrents-csv
 
       - name: Build and push Docker images
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
-          context: .
+          context: torrents-csv-src/
           platforms: linux/arm64
           push: true
           tags: ${{ steps.meta.outputs.tags }}
